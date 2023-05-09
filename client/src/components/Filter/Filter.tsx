@@ -1,6 +1,9 @@
 import { IconChevronDown } from '@tabler/icons-react';
 import { useStyles } from './Filter.styles';
 import { Card, Text, Group, CloseButton, MultiSelect, NumberInput, Button } from '@mantine/core';
+import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
+import { setFilterData } from '../../redux/slices';
 
 
 
@@ -8,6 +11,13 @@ import { Card, Text, Group, CloseButton, MultiSelect, NumberInput, Button } from
 
 export function Filter() {
     const { classes } = useStyles();
+    const dispatch = useDispatch();
+    const [industry, setIndustry] = useState(null as string[]|null);
+    const [currencyFrom, setCurrencyFrom] = useState('' as number|string);
+    const [currencyTo, setCurrencyTo] = useState('' as number|string);
+    const handleButtonClick=()=>{
+        dispatch(setFilterData({industry,currencyFrom,currencyTo}))
+    }
     return (
         <Card withBorder radius="md" className={classes.card}>
             <Group spacing={70} >
@@ -24,6 +34,7 @@ export function Filter() {
                 radius="md"
                 size="md"
                 placeholder="Выберете отрасль"
+                onChange={setIndustry}
                 rightSection={<IconChevronDown size="1.3rem" />}
                 maxDropdownHeight={200}
                 styles={{
@@ -41,6 +52,7 @@ export function Filter() {
                 radius="md"
                 size="md"
                 placeholder="от"
+                onChange={setCurrencyFrom}
                 min={0}
                 styles={{
                     control: { borderStyle: 'none' },
@@ -53,6 +65,7 @@ export function Filter() {
             <NumberInput
                 mt={8}
                 placeholder="до"
+                onChange={setCurrencyTo}
                 radius="md"
                 size="md"
                 min={0}
@@ -65,6 +78,7 @@ export function Filter() {
                 rightSectionWidth={45}
             />
             <Button
+            onClick={handleButtonClick}
                 className={classes.filter_btn}>
                 Применить
             </Button>
