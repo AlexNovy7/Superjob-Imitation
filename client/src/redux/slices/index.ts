@@ -1,12 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+
 const appSlice = createSlice({
     name:'appSlice',
     initialState:{
         filterData:{
-            industry:null,
-            currencyFrom:'',
-            currencyTo:''
+            industry:[],
+            paymentFrom:'',
+            paymentTo:''
         },
         searchData:''
     },

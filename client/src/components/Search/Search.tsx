@@ -3,6 +3,7 @@ import { IconSearch } from '@tabler/icons-react';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
+import { useAppDispatch } from '../../hooks';
 import { setSearchData } from '../../redux/slices';
 import { useStyles } from './Search.styles';
 
@@ -12,8 +13,7 @@ export function Search(props: TextInputProps) {
   const theme = useMantineTheme();
   const { classes } = useStyles();
   const [search, setSearch] = useState(''as string);
-  const dispatch = useDispatch();
-console.log(search)
+  const dispatch = useAppDispatch();
   const handleButtonClick=()=>{
     dispatch(setSearchData(search))
 }

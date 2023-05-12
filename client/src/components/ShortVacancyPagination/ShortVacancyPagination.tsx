@@ -1,58 +1,54 @@
-import React, { useEffect, useState } from 'react';
-import ReactDOM from 'react-dom';
+import { Loader } from '@mantine/core';
+import React, {  useState } from 'react';
+
 import ReactPaginate from 'react-paginate';
+import { useSelector } from 'react-redux';
+import {  useAppSelector, useFetchVacancies } from '../../hooks';
 import { ShortVacancyCard } from '../ShortVacancyCard/ShortVacancyCard';
 
-// Example items, to simulate fetching from another resources.
-const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
 
-function Items({ currentItems }) {
+
+
+function Items({ currentItems }:any) {
+
+  
   return (
     <>
       {currentItems &&
-        currentItems.map((item,index) => (
+        currentItems.map((item:any,index:number) => (
           <div key={index}>
-            <ShortVacancyCard  profession={'Менеджер-дизайнер'} currency={'10000'} type_of_work={'Полный рабочий день'} country={'Новый Уренгой'}  />
+            <ShortVacancyCard  profession={item.profession} paymentFrom={item.payment_from} paymentTo={item.payment_to} currency={item.currency} typeOfWork={item.type_of_work.title} country={item.town.title}  />
           </div>
         ))}
     </>
   );
 }
 
-export function ShortVacancyPagination({ itemsPerPage }) {
-  // Here we use item offsets; we could also use page offsets
-  // following the API or data you're working with.
+export function ShortVacancyPagination() {
   const [itemOffset, setItemOffset] = useState(0);
+  const sortData = useAppSelector((state)=>state.appReducer)
 
-  // Simulate fetching items from another resources.
-  // (This could be items from props; or items loaded in a local state
-  // from an API endpoint with useEffect and useState)
-  const endOffset = itemOffset + itemsPerPage;
-  console.log(`Loading items from ${itemOffset} to ${endOffset}`);
-  const currentItems = items.slice(itemOffset, endOffset);
-  const pageCount = Math.ceil(items.length / itemsPerPage);
+  const {data,isLoading} = useFetchVacancies(itemOffset,sortData.searchData,sortData.filterData.paymentFrom,sortData.filterData.paymentTo,sortData.filterData.industry);
 
-  // Invoke when user click to request another page.
-  const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % items.length;
-    console.log(
-      `User requested page number ${event.selected}, which is offset ${newOffset}`
-    );
-    setItemOffset(newOffset);
+
+
+ 
+  const pageCount = Math.ceil(data?data.total / data.objects.length:0);
+  const handlePageClick = (event: { selected: React.SetStateAction<number>; }) => {
+    setItemOffset(event.selected );
   };
 
   return (
-    <>
-      <Items currentItems={currentItems} />
-      <ReactPaginate
-        breakLabel="..."
-        nextLabel="next >"
-        onPageChange={handlePageClick}
-        pageRangeDisplayed={5}
-        pageCount={pageCount}
-        previousLabel="< previous"
-        renderOnZeroPageCount={null}
-      />
+    <>{isLoading ? (
+      <Loader />
+    ) : ( 
+    <><Items currentItems={data?.objects} /><ReactPaginate
+          nextLabel="next >"
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={3}
+          pageCount={pageCount}
+          previousLabel="< previous"
+          renderOnZeroPageCount={null} /></>)}
     </>
   );
 }
