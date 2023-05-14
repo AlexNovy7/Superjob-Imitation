@@ -1,4 +1,21 @@
-import { Text } from '@mantine/core';
+import { createStyles, Text } from '@mantine/core';
+
+
+const useStyles = createStyles((theme) => ({
+  
+  payment_text:{
+    fontWeight: 700,
+    fontSize: 16,
+    color:theme.colors.MyApp[4],
+    marginTop:7,
+    
+  },
+
+  
+}));
+
+
+
 
 
 
@@ -13,19 +30,19 @@ interface PaymentInfoProps {
 
 
 export const PaymentInfo = ({ paymentFrom, paymentTo, currency }: PaymentInfoProps) => {
- 
+  const { classes } = useStyles();
   if (paymentFrom === 0 && paymentTo === 0) {
     
-    return <Text fz="sm" mt="xs">з/п по договоренности</Text>
+    return <Text className={classes.payment_text}>з/п по договоренности</Text>
  } else if (paymentFrom === 0 && paymentTo !== 0) {
    
-    return <Text fz="sm" mt="xs">з/п {paymentTo} {currency}</Text>
+    return <Text className={classes.payment_text}>з/п {paymentTo}  {currency}</Text>
   } else if (paymentFrom !== 0 && paymentTo === 0) {
    
-    return <Text fz="sm" mt="xs">з/п от {paymentFrom} {currency}</Text>
+    return <Text className={classes.payment_text}>з/п от {paymentFrom}  {currency}</Text>
   } else {
    
-    return <Text fz="sm" mt="xs">з/п {paymentFrom}-{paymentTo} {currency}</Text>
+    return <Text className={classes.payment_text}>з/п {paymentFrom} - {paymentTo}  {currency}</Text>
  }
 
 }

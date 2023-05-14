@@ -7,6 +7,8 @@ export const useStyles = createStyles((theme) => ({
         width: 315,
         height: 360,
         backgroundColor: theme.colors.MyApp[0],
+        marginLeft:30,
+        
     },
 
     title: {

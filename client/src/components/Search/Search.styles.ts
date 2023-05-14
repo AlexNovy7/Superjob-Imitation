@@ -7,11 +7,14 @@ export const useStyles = createStyles((theme) => ({
            borderRadius: 8,
            height:32,
            marginRight:62,
+           
        },
        search_input:{
            fontWeight: 400,
            fontSize: 14,
           maxWidth:773,
+          marginBottom:15
+        
           
            
        },
