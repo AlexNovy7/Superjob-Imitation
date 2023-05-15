@@ -3,6 +3,8 @@ import { SlStar } from 'react-icons/sl';
 import { FaStar } from 'react-icons/fa';
 import { Card, Text, Group, createStyles, rem, List, } from '@mantine/core';
 import { PaymentInfo } from '../PaymentInfo/PaymentInfo';
+import { useNavigate } from 'react-router-dom';
+import { PATHS } from '../../data/routing';
 
 
 
@@ -12,6 +14,9 @@ const useStyles = createStyles((theme) => ({
     width: 773,
     minHeight: 137,
     marginBottom:16,
+    '&:hover': {
+      cursor:'pointer'
+    },
   },
   profession_text: {
     fontWeight: 600,
@@ -81,8 +86,12 @@ interface ShortVacancyCardProps {
 
 export function ShortVacancyCard({ profession, paymentFrom, paymentTo, currency, country, typeOfWork }: ShortVacancyCardProps) {
   const { classes, theme } = useStyles();
+  const navigate = useNavigate();
+  const handleCardClick = () => {
+    navigate(PATHS.vacancy);
+}
   return (
-    <Card withBorder radius="md" p="md" className={classes.card}>
+    <Card onClick={handleCardClick} withBorder radius="md" p="md" className={classes.card}>
 
       <Card.Section className={classes.section} mt="md">
         <Group className={classes.content_position} position="apart">

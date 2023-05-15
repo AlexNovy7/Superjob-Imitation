@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { createStyles, Header, Container, Group, Burger, rem } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { Image } from '@mantine/core';
+import { useNavigate } from "react-router-dom";
 
 const useStyles = createStyles((theme) => ({
   header: {
@@ -18,11 +19,7 @@ const useStyles = createStyles((theme) => ({
     },
   },
 
-  burger: {
-    [theme.fn.largerThan('xs')]: {
-      display: 'none',
-    },
-  },
+ 
 
   link: {
     display: 'block',
@@ -33,6 +30,7 @@ const useStyles = createStyles((theme) => ({
     color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.gray[7],
     fontSize: 16,
     fontWeight: 500,
+    cursor:'pointer'
 
     
   },
@@ -40,6 +38,7 @@ const useStyles = createStyles((theme) => ({
   linkActive: {
     '&, &:hover': {
       color: theme.fn.variant({ variant: 'light', color: theme.primaryColor[1] }).color,
+      cursor:'pointer'
     },
   },
 }));
@@ -49,22 +48,23 @@ interface HeaderProps {
 }
 
 export function AppHeader({ links }: HeaderProps) {
-  const [opened, { toggle }] = useDisclosure(false);
   const [active, setActive] = useState(links[0].link);
   const { classes, cx } = useStyles();
+  const navigate = useNavigate();
 
   const items = links.map((link) => (
-    <a
+    <div
       key={link.label}
-      href={link.link}
       className={cx(classes.link, { [classes.linkActive]: active === link.link })}
       onClick={(event) => {
         event.preventDefault();
         setActive(link.link);
+        navigate(link.link);
+        console.log(link.link);
       }}
     >
       {link.label}
-    </a>
+    </div>
   ));
 
   return (
@@ -75,7 +75,7 @@ export function AppHeader({ links }: HeaderProps) {
           {items}
         </Group>
 
-        <Burger opened={opened} onClick={toggle} className={classes.burger} size="sm" />
+       
       </Container>
     </Header>
   );
