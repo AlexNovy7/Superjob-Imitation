@@ -1,10 +1,11 @@
 import { IconMapPin } from '@tabler/icons-react';
 import { SlStar } from 'react-icons/sl';
 import { FaStar } from 'react-icons/fa';
-import { Card, Text, Group, createStyles, rem, List, } from '@mantine/core';
+import { Card, Text, Group, createStyles, rem, List, Button, } from '@mantine/core';
 import { PaymentInfo } from '../PaymentInfo/PaymentInfo';
 import { useNavigate } from 'react-router-dom';
 import { PATHS } from '../../data/routing';
+import { useState } from 'react';
 
 interface ShortVacancyCardStylesProps {
   card_minHeight: number;
@@ -68,7 +69,8 @@ const useStyles = createStyles((theme, { card_minHeight,
     border: theme.colors.dark[4],
     color: theme.colors.dark[4],
     strokeWidth: 12,
-    marginTop: 20,
+    position:"relative",
+    zIndex:100000000,
 
   },
 
@@ -86,6 +88,15 @@ const useStyles = createStyles((theme, { card_minHeight,
   icon_map: {
     marginTop: 7,
   },
+  btn:{
+    padding:0,
+    border:"none",
+    backgroundColor:"transparent",
+    marginTop:10,
+    '&:hover': {
+      backgroundColor: "transparent",
+    },
+  }
 }));
 
 interface ShortVacancyCardProps {
@@ -111,6 +122,14 @@ export function ShortVacancyCard(props: ShortVacancyCardAllProps) {
     typeOfWork,
     currency,
     country } = props;
+  const [switchStar, setSwitchStar] = useState(false);
+
+  const handleStarClick = (event: { stopPropagation: () => void; }) => {
+    //  localStorage.setItem('clickedVacancy',JSON.stringify(vacancy));
+    event.stopPropagation();
+    switchStar === false ? setSwitchStar(true) : setSwitchStar(false)
+  }
+  //variant={"link"}
   return (
     <Card withBorder radius="md" p="md" mx="auto" className={classes.card}>
 
@@ -119,7 +138,11 @@ export function ShortVacancyCard(props: ShortVacancyCardAllProps) {
           <Text className={classes.profession_text}>
             {profession}
           </Text>
-          <SlStar size="1.3rem" className={classes.star} fill={theme.colors.MyApp[3]} />
+          <Button  className={classes.btn}  onClick={handleStarClick}>
+          {switchStar ? <FaStar size="1.3rem" className={classes.star} color={theme.colors.MyApp[1]} /> :
+            <SlStar   size="1.3rem" className={classes.star} fill={theme.colors.MyApp[3]} />}
+          </Button>
+       
         </Group>
         <Group spacing={11} className={classes.content_position}>
           <PaymentInfo payment_text_fontSize={payment_text_fontSize} paymentFrom={paymentFrom} paymentTo={paymentTo} currency={currency} />
