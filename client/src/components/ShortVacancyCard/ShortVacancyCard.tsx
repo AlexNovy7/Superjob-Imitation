@@ -6,28 +6,43 @@ import { PaymentInfo } from '../PaymentInfo/PaymentInfo';
 import { useNavigate } from 'react-router-dom';
 import { PATHS } from '../../data/routing';
 
+interface ShortVacancyCardStylesProps {
+  card_minHeight: number;
+  profession_text_fontWeight: number;
+  profession_text_fontSize: number;
+  profession_text_color: string;
+  typeOfWork_text_fontWeight: number;
+  typeOfWork_text_fontSize: number;
+}
 
 
-const useStyles = createStyles((theme) => ({
+
+const useStyles = createStyles((theme, { card_minHeight,
+  profession_text_fontWeight,
+  profession_text_fontSize,
+  profession_text_color,
+  typeOfWork_text_fontWeight,
+  typeOfWork_text_fontSize,
+}: ShortVacancyCardStylesProps) => ({
   card: {
     backgroundColor: theme.colors.MyApp[0],
     width: 773,
-    minHeight: 137,
-    marginBottom:16,
+    minHeight: card_minHeight,
+    marginBottom: 16,
     '&:hover': {
-      cursor:'pointer'
+      cursor: 'pointer'
     },
   },
   profession_text: {
-    fontWeight: 600,
-    fontSize: 20,
-    color: theme.colors.MyApp[1],
+    fontWeight: profession_text_fontWeight,
+    fontSize: profession_text_fontSize,
+    color: profession_text_color,
     marginTop: 20,
-    maxWidth:650,
+    maxWidth: 650,
   },
   typeOfWork_text: {
-    fontWeight: 400,
-    fontSize: 16,
+    fontWeight: typeOfWork_text_fontWeight,
+    fontSize: typeOfWork_text_fontSize,
     marginTop: 5,
   },
   payment_text: {
@@ -81,17 +96,23 @@ interface ShortVacancyCardProps {
   paymentTo: string;
   typeOfWork: string;
   currency: string;
+  payment_text_fontSize: number;
+
 
 }
+type ShortVacancyCardAllProps = ShortVacancyCardStylesProps & ShortVacancyCardProps
 
-export function ShortVacancyCard({ profession, paymentFrom, paymentTo, currency, country, typeOfWork }: ShortVacancyCardProps) {
-  const { classes, theme } = useStyles();
-  const navigate = useNavigate();
-  const handleCardClick = () => {
-    navigate(PATHS.vacancy);
-}
+export function ShortVacancyCard(props: ShortVacancyCardAllProps) {
+  const { classes, theme } = useStyles(props);
+  const { profession,
+    paymentFrom,
+    paymentTo,
+    payment_text_fontSize,
+    typeOfWork,
+    currency,
+    country } = props;
   return (
-    <Card onClick={handleCardClick} withBorder radius="md" p="md" className={classes.card}>
+    <Card withBorder radius="md" p="md" className={classes.card}>
 
       <Card.Section className={classes.section} mt="md">
         <Group className={classes.content_position} position="apart">
@@ -101,7 +122,7 @@ export function ShortVacancyCard({ profession, paymentFrom, paymentTo, currency,
           <SlStar size="1.3rem" className={classes.star} fill={theme.colors.MyApp[3]} />
         </Group>
         <Group spacing={11} className={classes.content_position}>
-          <PaymentInfo paymentFrom={paymentFrom} paymentTo={paymentTo} currency={currency} />
+          <PaymentInfo payment_text_fontSize={payment_text_fontSize} paymentFrom={paymentFrom} paymentTo={paymentTo} currency={currency} />
           <List>
             <List.Item className={classes.typeOfWork_text}>{typeOfWork}</List.Item>
           </List>
