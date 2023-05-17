@@ -112,7 +112,7 @@ export function ShortVacancyCard(props: ShortVacancyCardAllProps) {
     currency,
     country } = props;
   return (
-    <Card withBorder radius="md" p="md" className={classes.card}>
+    <Card withBorder radius="md" p="md" mx="auto" className={classes.card}>
 
       <Card.Section className={classes.section} mt="md">
         <Group className={classes.content_position} position="apart">
