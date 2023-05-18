@@ -24,7 +24,6 @@ const useStyles = createStyles((theme) => ({
 export const VacancyPage = () => {
     const { classes } = useStyles();
     const vacancy = JSON.parse(localStorage.clickedVacancy)
-    console.log(vacancy);
     //check it
     //const {  theme } = useStyles();
 
@@ -42,12 +41,8 @@ export const VacancyPage = () => {
                         typeOfWork_text_fontWeight={400}
                         typeOfWork_text_fontSize={20}
                         payment_text_fontSize={20}
-                        profession={vacancy.profession}
-                        paymentFrom={vacancy.payment_from}
-                        paymentTo={vacancy.payment_to}
-                        currency={vacancy.currency}
-                        typeOfWork={vacancy.type_of_work.title}
-                        country={vacancy.town.title} />
+                        data={vacancy}
+                        />
                     {vacancy && <Card withBorder radius="md" p="md" mx="auto" className={classes.card}>
 
 <Card.Section  mt="md" className={classes.section}>

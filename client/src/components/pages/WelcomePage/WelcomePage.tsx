@@ -26,7 +26,7 @@ export const WelcomePage =() => {
       <Filter />
      <Container className={classes.container}>
      <Search/>
-      <ShortVacancyPagination/>
+      <ShortVacancyPagination queryUsage={true} mtPagination={38}/>
       </Container>
     </Group>
     </Container>

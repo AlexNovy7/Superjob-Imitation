@@ -48,10 +48,12 @@ interface HeaderProps {
 }
 
 export function AppHeader({ links }: HeaderProps) {
-  const [active, setActive] = useState(links[0].link);
+ 
   const { classes, cx } = useStyles();
   const navigate = useNavigate();
-
+  const link = localStorage.headerLink?
+  JSON.parse(localStorage.headerLink): links[0].link;
+  const [active, setActive] = useState(link);
   const items = links.map((link) => (
     <div
       key={link.label}
@@ -60,7 +62,7 @@ export function AppHeader({ links }: HeaderProps) {
         event.preventDefault();
         setActive(link.link);
         navigate(link.link);
-        console.log(link.link);
+        localStorage.setItem('headerLink',JSON.stringify(link.link))
       }}
     >
       {link.label}

@@ -5,7 +5,7 @@ import { Card, Text, Group, createStyles, rem, List, Button, } from '@mantine/co
 import { PaymentInfo } from '../PaymentInfo/PaymentInfo';
 import { useNavigate } from 'react-router-dom';
 import { PATHS } from '../../data/routing';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface ShortVacancyCardStylesProps {
   card_minHeight: number;
@@ -100,43 +100,59 @@ const useStyles = createStyles((theme, { card_minHeight,
 }));
 
 interface ShortVacancyCardProps {
-
-  profession: string;
-  country: string;
-  paymentFrom: string;
-  paymentTo: string;
-  typeOfWork: string;
-  currency: string;
+data: any;
   payment_text_fontSize: number;
-
-
 }
 type ShortVacancyCardAllProps = ShortVacancyCardStylesProps & ShortVacancyCardProps
+//solve question with any
+const manipulateStar=(switchStar:boolean,data:any )=>{
+  //refactor???
+  let switchedVacancies = localStorage.SwitchedVacancies?
+  JSON.parse(localStorage.SwitchedVacancies): [];
+  const hasId=switchedVacancies.some((object:any)=>object.id===data.id)
+  
+  if(!switchStar){
+    !hasId&&switchedVacancies.push(data)
+  } else{ 
+    switchedVacancies = switchedVacancies.filter((object:any)=>object.id!==data.id)
+
+  }
+  
+  localStorage.setItem('SwitchedVacancies',JSON.stringify(switchedVacancies))
+}
+const hasStar=(data:any)=>{
+ const switchedVacancies = localStorage.SwitchedVacancies?
+  JSON.parse(localStorage.SwitchedVacancies): [];
+console.log(switchedVacancies)
+console.log(data.id);
+  return switchedVacancies.some((object:any)=>object.id===data.id)
+
+}
+
 
 export function ShortVacancyCard(props: ShortVacancyCardAllProps) {
   const { classes, theme } = useStyles(props);
-  const { profession,
-    paymentFrom,
-    paymentTo,
-    payment_text_fontSize,
-    typeOfWork,
-    currency,
-    country } = props;
-  const [switchStar, setSwitchStar] = useState(false);
+  const { payment_text_fontSize,data } = props;
 
+  const [switchStar, setSwitchStar] = useState(false);
+  useEffect(() => {
+  
+    setSwitchStar(hasStar(data)) 
+  },[data]);
+
+  console.log(switchStar)
   const handleStarClick = (event: { stopPropagation: () => void; }) => {
-    //  localStorage.setItem('clickedVacancy',JSON.stringify(vacancy));
     event.stopPropagation();
-    switchStar === false ? setSwitchStar(true) : setSwitchStar(false)
+    switchStar === false ? setSwitchStar(true) : setSwitchStar(false);
+    manipulateStar(switchStar,data);
   }
-  //variant={"link"}
   return (
     <Card withBorder radius="md" p="md" mx="auto" className={classes.card}>
 
       <Card.Section className={classes.section} mt="md">
         <Group className={classes.content_position} position="apart">
           <Text className={classes.profession_text}>
-            {profession}
+            {data.profession}
           </Text>
           <Button  className={classes.btn}  onClick={handleStarClick}>
           {switchStar ? <FaStar size="1.3rem" className={classes.star} color={theme.colors.MyApp[1]} /> :
@@ -145,16 +161,16 @@ export function ShortVacancyCard(props: ShortVacancyCardAllProps) {
        
         </Group>
         <Group spacing={11} className={classes.content_position}>
-          <PaymentInfo payment_text_fontSize={payment_text_fontSize} paymentFrom={paymentFrom} paymentTo={paymentTo} currency={currency} />
+          <PaymentInfo payment_text_fontSize={payment_text_fontSize} paymentFrom={data.payment_from} paymentTo={data.payment_to} currency={data.currency} />
           <List>
-            <List.Item className={classes.typeOfWork_text}>{typeOfWork}</List.Item>
+            <List.Item className={classes.typeOfWork_text}>{data.type_of_work.title}</List.Item>
           </List>
 
         </Group>
         <Group spacing={11} className={classes.content_position}>
           <IconMapPin className={classes.icon_map} size="1.1rem" stroke={1.5} />
           <Text className={classes.country_text}>
-            {country}
+            {data.town.title}
           </Text>
         </Group>
       </Card.Section>
