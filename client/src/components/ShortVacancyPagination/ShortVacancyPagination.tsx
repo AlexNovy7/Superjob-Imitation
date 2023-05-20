@@ -1,11 +1,11 @@
 import { Loader } from '@mantine/core';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Pagination } from '@mantine/core';
-
-import { useAppSelector, useFetchVacancies } from '../../hooks';
+import { useAppDispatch, useAppSelector, useFetchVacancies } from '../../hooks';
 import { ShortVacancyCard } from '../ShortVacancyCard/ShortVacancyCard';
 import { useNavigate } from 'react-router-dom';
 import { PATHS } from '../../data/routing';
+import { setHeaderLink } from '../../redux/slices';
 function pageCount(totalPages: number, activePage: number, amountOfVacanciesOnPage: number) {
   if (totalPages) {
     const amountOfPages = Math.ceil(totalPages / amountOfVacanciesOnPage) > 125 ? 126 : Math.ceil(totalPages / amountOfVacanciesOnPage)
@@ -19,10 +19,13 @@ function pageCount(totalPages: number, activePage: number, amountOfVacanciesOnPa
 }
 interface queryUsageProps {
   queryUsage: boolean;
-  mtPagination:number;
+  mtPagination: number;
 }
 
-export function ShortVacancyPagination({ queryUsage,mtPagination }: queryUsageProps) {
+export function ShortVacancyPagination({ queryUsage, mtPagination }: queryUsageProps) {
+  const dispatch = useAppDispatch();
+ 
+  const navigate = useNavigate();
   const [activePage, setPage] = useState(1);
   const sortData = useAppSelector((state) => state.appReducer)
   //refactor?
@@ -36,11 +39,25 @@ export function ShortVacancyPagination({ queryUsage,mtPagination }: queryUsagePr
   const [vacanciesData, loading, totalPages] = queryUsage ?
     [data?.objects, isLoading, data?.total] :
     [switchedVacanciesPerPage, null, switchedVacancies.length]
-  const navigate = useNavigate();
+  
+
+  useEffect(() => {
+    if (typeof vacanciesData !== 'undefined' && vacanciesData.length === 0 && !isLoading) {
+      navigate(PATHS.notFound)
+    }
+  }, [isLoading, vacanciesData, navigate]);
+  
+  useEffect(() => {
+    queryUsage ? dispatch(setHeaderLink(PATHS.welcome)) :
+    dispatch(setHeaderLink(PATHS.select))
+  }, [queryUsage, dispatch]);
+
   const handleCardClick = (vacancy: any) => {
     localStorage.setItem('clickedVacancy', JSON.stringify(vacancy));
     navigate(PATHS.vacancy);
   }
+
+
 
   return (
     <>{loading ? (
@@ -68,7 +85,7 @@ export function ShortVacancyPagination({ queryUsage,mtPagination }: queryUsagePr
           onChange={setPage}
           mt={mtPagination}
           mb={42}
-          total={pageCount(totalPages, activePage, 4)}
+          total={pageCount(totalPages, activePage, itemsPerPage)}
           styles={{
             dots: { display: "none" },
 

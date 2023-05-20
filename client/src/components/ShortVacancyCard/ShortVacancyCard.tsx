@@ -123,8 +123,7 @@ const manipulateStar=(switchStar:boolean,data:any )=>{
 const hasStar=(data:any)=>{
  const switchedVacancies = localStorage.SwitchedVacancies?
   JSON.parse(localStorage.SwitchedVacancies): [];
-console.log(switchedVacancies)
-console.log(data.id);
+
   return switchedVacancies.some((object:any)=>object.id===data.id)
 
 }
@@ -140,7 +139,7 @@ export function ShortVacancyCard(props: ShortVacancyCardAllProps) {
     setSwitchStar(hasStar(data)) 
   },[data]);
 
-  console.log(switchStar)
+
   const handleStarClick = (event: { stopPropagation: () => void; }) => {
     event.stopPropagation();
     switchStar === false ? setSwitchStar(true) : setSwitchStar(false);

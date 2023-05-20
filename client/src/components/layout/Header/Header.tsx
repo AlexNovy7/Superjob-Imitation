@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { createStyles, Header, Container, Group, Burger, rem } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
+import { useEffect, useState } from 'react';
+import { createStyles, Header, Container, Group, rem } from '@mantine/core';
 import { Image } from '@mantine/core';
 import { useNavigate } from "react-router-dom";
+import { useAppSelector } from '../../../hooks';
 
 const useStyles = createStyles((theme) => ({
   header: {
@@ -50,9 +50,13 @@ interface HeaderProps {
 export function AppHeader({ links }: HeaderProps) {
  
   const { classes, cx } = useStyles();
+  const link = useAppSelector((state) => state.appReducer.headerLink)
+  console.log(link)
   const navigate = useNavigate();
-  const link = localStorage.headerLink?
-  JSON.parse(localStorage.headerLink): links[0].link;
+   useEffect(() => {
+    setActive(link)
+    
+  }, [link]);
   const [active, setActive] = useState(link);
   const items = links.map((link) => (
     <div
@@ -62,7 +66,6 @@ export function AppHeader({ links }: HeaderProps) {
         event.preventDefault();
         setActive(link.link);
         navigate(link.link);
-        localStorage.setItem('headerLink',JSON.stringify(link.link))
       }}
     >
       {link.label}

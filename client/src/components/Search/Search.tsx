@@ -17,8 +17,7 @@ export function Search(props: TextInputProps) {
   const handleButtonClick=()=>{
     dispatch(setSearchData(search))
 }
-//const a = useSelector((state)=>state.appReducer)
-//console.log(a)
+
 
   return (
     <TextInput

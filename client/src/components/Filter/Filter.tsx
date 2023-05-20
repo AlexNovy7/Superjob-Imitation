@@ -7,9 +7,6 @@ import { setFilterData } from '../../redux/slices';
 import { useAppDispatch, useFetchIndustries } from '../../hooks';
 
 
-
-
-
 export function Filter() {
     const { classes } = useStyles();
     const dispatch = useAppDispatch();
@@ -20,9 +17,6 @@ export function Filter() {
     const industryData = data?.map((item: { key: number; title_rus: string; }) => {
         return { value: item.key, label: item.title_rus }
     })
-
-
-
     const handleButtonClick = () => {
         dispatch(setFilterData({ industry, paymentFrom, paymentTo }))
     }
