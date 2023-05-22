@@ -1,6 +1,17 @@
-import { createStyles } from "@mantine/core";
+import { createStyles, Flex } from "@mantine/core";
 
 export const useStyles = createStyles((theme) => ({
+   reset_btn:{
+    
+        backgroundColor:'transparent',
+        width:164,
+        
+        color: theme.colors.MyApp[3],
+        '&:hover': {
+          backgroundColor: 'transparent',
+      },
+    },
+   
 
    card: {
 
@@ -25,11 +36,12 @@ export const useStyles = createStyles((theme) => ({
             cursor: 'pointer',
         },
     },
-    filter_btn:{
+    apply_btn:{
         backgroundColor:theme.colors.MyApp[1],
         width:275,
         borderRadius: 8,
         height:40,
         marginTop:20,
-    }
+    },
+    
 }));

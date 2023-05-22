@@ -2,6 +2,8 @@ import { Button, Container, createStyles } from "@mantine/core";
 import { Image,Text, } from '@mantine/core';
 import { useNavigate } from "react-router-dom";
 import { PATHS } from "../../../data/routing";
+import { useAppDispatch } from "../../../hooks";
+import { setFilterData, setSearchData } from "../../../redux/slices";
 
 const useStyles = createStyles((theme) => ({
   title: {
@@ -33,10 +35,12 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export const NotFoundPage =() => {
+  const dispatch = useAppDispatch();
   const { classes,theme } = useStyles();
   const navigate = useNavigate();
   const handleButtonClick = () => {
-    localStorage.setItem('headerLink',JSON.stringify(PATHS.welcome))
+    dispatch(setFilterData({ industry:[], paymentFrom:'', paymentTo:'' }))
+    dispatch(setSearchData(''))
     navigate(PATHS.welcome);
     
   }

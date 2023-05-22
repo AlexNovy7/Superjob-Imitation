@@ -1,38 +1,54 @@
 import { IconChevronDown } from '@tabler/icons-react';
 import { useStyles } from './Filter.styles';
 import { Card, Text, Group, CloseButton, MultiSelect, NumberInput, Button, Loader } from '@mantine/core';
-import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { setFilterData } from '../../redux/slices';
 import { useAppDispatch, useFetchIndustries } from '../../hooks';
 
+//Solve it?????
+//rightIcon={<CloseButton title="Settings" iconSize={14} />}
 
 export function Filter() {
     const { classes } = useStyles();
     const dispatch = useAppDispatch();
     const [industry, setIndustry] = useState([] as string[]);
-    const [paymentFrom, setPaymentFrom] = useState('' as number | string);
-    const [paymentTo, setPaymentTo] = useState('' as number | string);
+    const [paymentFrom, setPaymentFrom] = useState('' as number | '');
+    const [paymentTo, setPaymentTo] = useState('' as number | '');
     const { data, isLoading } = useFetchIndustries();
+
     const industryData = data?.map((item: { key: number; title_rus: string; }) => {
         return { value: item.key, label: item.title_rus }
     })
-    const handleButtonClick = () => {
+    const handleButtonApplyClick = () => {
         dispatch(setFilterData({ industry, paymentFrom, paymentTo }))
+    }
+    const handleButtonResetClick = () => {
+        setPaymentFrom('');
+        setPaymentTo('');
+        setIndustry([]);
+        dispatch(setFilterData({ industry:[], paymentFrom:'', paymentTo:'' }))
     }
     return (
         <>
             {isLoading ? (
                 <Loader />
             ) : (<Card withBorder radius="md" className={classes.card}>
-                <Group spacing={70} >
+
+                <Group spacing={65} >
                     <Text className={classes.title}>Фильтры</Text>
-                    <Group spacing={1}>
-                        <Text className={classes.reset}>Cбросить все</Text>
-                        <CloseButton title="Settings" iconSize={14} />
-                    </Group>
+                    <Button
+                        onClick={handleButtonResetClick}
+                        styles={{ rightIcon: { margin: 0 } }}
+                        w={120}
+                        p={0}
+                        className={classes.reset_btn}
+                        
+                        >
+                        Cбросить все
+                    </Button>
                 </Group>
                 <MultiSelect
+                    value={industry}
                     maxSelectedValues={2}
                     mt={27}
                     data={industryData}
@@ -53,6 +69,7 @@ export function Filter() {
                 />
 
                 <NumberInput
+                    value={paymentFrom}
                     mt={18}
                     label="Оклад"
                     radius="md"
@@ -69,6 +86,7 @@ export function Filter() {
                     rightSectionWidth={45}
                 />
                 <NumberInput
+                    value={paymentTo}
                     mt={8}
                     placeholder="до"
                     onChange={setPaymentTo}
@@ -84,8 +102,8 @@ export function Filter() {
                     rightSectionWidth={45}
                 />
                 <Button
-                    onClick={handleButtonClick}
-                    className={classes.filter_btn}>
+                    onClick={handleButtonApplyClick}
+                    className={classes.apply_btn}>
                     Применить
                 </Button>
             </Card>)}</>
