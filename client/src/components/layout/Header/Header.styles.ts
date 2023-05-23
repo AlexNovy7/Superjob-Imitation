@@ -14,10 +14,7 @@ export const useStyles = createStyles((theme) => ({
     padding: `${rem(8)} ${rem(12)}`,
     borderRadius: theme.radius.sm,
     textDecoration: "none",
-    color:
-      theme.colorScheme === "dark"
-        ? theme.colors.dark[0]
-        : theme.colors.gray[7],
+    color: theme.colors.gray[7],
     fontSize: 16,
     fontWeight: 500,
     cursor: "pointer",
@@ -27,7 +24,7 @@ export const useStyles = createStyles((theme) => ({
     "&, &:hover": {
       color: theme.fn.variant({
         variant: "light",
-        color: theme.primaryColor[1],
+        color:  theme.colors.MyApp[1],
       }).color,
       cursor: "pointer",
     },

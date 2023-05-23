@@ -66,6 +66,7 @@ export function ShortVacancyPagination({ queryUsage, mtPagination }: queryUsageP
       </Container>
       <Pagination
           position="center"
+          color={ theme.colors.MyApp[1]}
           value={activePage}
           onChange={setPage}
           mt={mtPagination}
