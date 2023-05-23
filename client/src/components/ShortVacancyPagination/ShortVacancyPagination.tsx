@@ -39,7 +39,7 @@ export function ShortVacancyPagination({ queryUsage, mtPagination }: queryUsageP
 
   const handleCardClick = (vacancy: ApiVacancyData) => {
     localStorage.setItem('clickedVacancy', JSON.stringify(vacancy));
-    navigate(PATHS.vacancy);
+    navigate(`${PATHS.vacancy}/${vacancy.id}`);
   }
 
   return (

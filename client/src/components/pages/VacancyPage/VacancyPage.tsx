@@ -8,6 +8,7 @@ export const VacancyPage = () => {
     const { classes, theme } = useStyles();
     const largeScreen = useMediaQuery('(min-width: 90em)');
     const vacancy = JSON.parse(localStorage.clickedVacancy)
+    
     return (
         <>
             <Container bg={theme.colors.MyApp[5]} pt={40} pb={50} size={1440}>

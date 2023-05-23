@@ -30,7 +30,7 @@ export default function App() {
         <AppHeader links={[{ link: PATHS.welcome, label: "Поиск Вакансий" }, { link: PATHS.select, label: " Избранное" }]} />
         <Routes>
           <Route path={PATHS.welcome} element={<WelcomePage />} />
-          <Route path={PATHS.vacancy} element={<VacancyPage />} />
+          <Route path={`${PATHS.vacancy}/:id`} element={<VacancyPage />} />
           <Route path={PATHS.select} element={<SelectPage />} />
           <Route path={PATHS.notFound} element={<NotFoundPage />} />
         </Routes>

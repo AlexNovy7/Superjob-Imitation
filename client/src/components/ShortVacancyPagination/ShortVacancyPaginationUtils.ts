@@ -6,7 +6,7 @@ export const pageCount = (
   if (totalPages) {
     const amountOfPages =
       Math.ceil(totalPages / amountOfVacanciesOnPage) > 125
-        ? 126
+        ? 125
         : Math.ceil(totalPages / amountOfVacanciesOnPage);
     if (activePage + 2 < amountOfPages) {
       return activePage + 2;
