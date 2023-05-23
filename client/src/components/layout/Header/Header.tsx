@@ -6,6 +6,7 @@ import { useAppSelector } from '../../../hooks';
 import { useMediaQuery } from '@mantine/hooks';
 import { useStyles } from './Header.styles';
 import { HeaderProps } from '../../../interfaces';
+import { IMAGES } from '../../../data';
 
 
 export function AppHeader({ links }: HeaderProps) {
@@ -35,7 +36,7 @@ export function AppHeader({ links }: HeaderProps) {
   return (
     <Header height={84} sx={{ border: 'none' }}>
       <Container className={classes.header}>
-        <Image maw={140} ml={largeScreen ? 150 : 10} src="https://i.ibb.co/F7jSt0X/Frame-116046626.png" alt="logo" />
+        <Image maw={140} ml={largeScreen ? 150 : 10} src={IMAGES.logo} alt="logo" />
         <Group ml={largeScreen ? 268 : 10} spacing={largeScreen ? 38 : 10}>
           {items}
         </Group>

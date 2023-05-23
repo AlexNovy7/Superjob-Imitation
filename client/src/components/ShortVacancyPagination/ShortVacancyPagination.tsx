@@ -4,7 +4,7 @@ import { Pagination } from '@mantine/core';
 import { useAppDispatch, useAppSelector, useFetchVacancies } from '../../hooks';
 import { ShortVacancyCard } from '../ShortVacancyCard/ShortVacancyCard';
 import { useNavigate } from 'react-router-dom';
-import { PATHS } from '../../data/routing';
+import { PATHS } from '../../data';
 import { setHeaderLink } from '../../redux/slices';
 import { ApiVacancyData, queryUsageProps } from '../../interfaces';
 import { pageCount } from './ShortVacancyPaginationUtils';

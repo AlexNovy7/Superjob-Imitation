@@ -5,7 +5,7 @@ import { WelcomePage } from './components/pages/WelcomePage/WelcomePage';
 import { Search } from './components/Search/Search';
 import { ShortVacancyPagination } from './components/ShortVacancyPagination/ShortVacancyPagination';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { PATHS } from './data/routing';
+import { PATHS } from './data';
 import { VacancyPage } from './components/pages/VacancyPage/VacancyPage';
 import { SelectPage } from './components/pages/SelectPage/SelectPage';
 import { NotFoundPage } from './components/pages/NotFoundPage/NotFoundPage';
