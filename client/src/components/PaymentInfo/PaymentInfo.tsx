@@ -1,36 +1,6 @@
-import { createStyles, Text } from '@mantine/core';
-interface PaymentInfoStylesProps {
-
-  payment_text_fontSize: number;
-
-}
-
-const useStyles = createStyles((theme,{payment_text_fontSize}:PaymentInfoStylesProps) => ({
-  
-  payment_text:{
-    fontWeight: 700,
-    fontSize: payment_text_fontSize,
-    color:theme.colors.MyApp[4],
-    marginTop:7,
-    
-  },
-
-  
-}));
-
-
-type PaymentInfoAllProps = PaymentInfoProps&PaymentInfoStylesProps
-
-
-
-
-interface PaymentInfoProps {
-
-  paymentFrom: number | string;
-  paymentTo: number | string;
-  currency: string;
-
-}
+import { Text } from '@mantine/core';
+import { PaymentInfoAllProps } from '../../interfaces';
+import { useStyles } from './PaymentInfo.styles';
 
 
 export const PaymentInfo = ({ payment_text_fontSize,paymentFrom, paymentTo, currency }: PaymentInfoAllProps) => {

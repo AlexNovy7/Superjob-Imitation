@@ -1,8 +1,7 @@
-import { TextInput, TextInputProps,useMantineTheme, Button } from '@mantine/core';
+import { TextInput, TextInputProps, Button } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
 import { IconSearch } from '@tabler/icons-react';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
 import { useAppDispatch } from '../../hooks';
 import { setSearchData } from '../../redux/slices';
 import { useStyles } from './Search.styles';
@@ -10,18 +9,19 @@ import { useStyles } from './Search.styles';
 
 
 export function Search(props: TextInputProps) {
-  const theme = useMantineTheme();
+  const largeScreen = useMediaQuery('(min-width: 90em)');
   const { classes } = useStyles();
-  const [search, setSearch] = useState(''as string);
+  const [search, setSearch] = useState('' as string);
   const dispatch = useAppDispatch();
-  const handleButtonClick=()=>{
+  const handleButtonClick = () => {
     dispatch(setSearchData(search))
-}
-
-
+  }
   return (
     <TextInput
-    className={classes.search_input}
+      data-elem="search-input"
+      className={classes.search_input}
+      w={largeScreen ? 773 : 280}
+      mb={15}
       icon={<IconSearch size="1.1rem" stroke={1.5} />}
       radius="md"
       size="lg"
@@ -29,19 +29,24 @@ export function Search(props: TextInputProps) {
       onChange={(event) => setSearch(event.currentTarget.value)}
       rightSection={
         <Button
-        className={classes.search_btn}
-        onClick={handleButtonClick}
+          data-elem="search-button"
+          w={largeScreen ? 83 : 60}
+          mr={largeScreen ? 62 : 10}
+          className={classes.search_btn}
+          onClick={handleButtonClick}
         >
-            Поиск
+          Поиск
         </Button>
       }
       styles={{
-      input:{ fontWeight: 400,
-        fontSize: 14},
-        icon:{
-            paddingLeft:0,
+        input: {
+          fontWeight: 400,
+          fontSize: 14
+        },
+        icon: {
+          paddingLeft: 0,
         }
-    }}
+      }}
       placeholder="Введите название вакансии"
       {...props}
     />

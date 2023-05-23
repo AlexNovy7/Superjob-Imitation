@@ -1,35 +1,24 @@
-import { Group, Button, Container, createStyles } from '@mantine/core';
+import { Group, Container, useMantineTheme } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
 import { Filter } from '../../Filter/Filter';
 import { Search } from '../../Search/Search';
 import { ShortVacancyPagination } from '../../ShortVacancyPagination/ShortVacancyPagination';
 
-const useStyles = createStyles((theme) => ({
-    group: {
-        maxWidth:1162,
-        margin:'0 auto',
-        paddingTop:42,
-        backgroundColor:theme.colors.MyApp[5],
-    },
-    container:{
-        margin:0,
-        
-    }
-  }));
 
-export const WelcomePage =() => {
-    const { classes } = useStyles();
-   
+export const WelcomePage = () => {
+  const theme = useMantineTheme();
+  const largeScreen = useMediaQuery('(min-width: 90em)');
 
   return (
-    <Container size={1440}>
-    <Group align="top" spacing={12} className={classes.group}>
-      <Filter />
-     <Container className={classes.container}>
-     <Search/>
-      <ShortVacancyPagination queryUsage={true} mtPagination={38}/>
-      </Container>
-    </Group>
+    <Container bg={theme.colors.MyApp[5]} size={1440}>
+      <Group w={largeScreen?1162:320} mx={'auto'} pt={largeScreen?38:20} align="top" spacing={12}>
+        <Filter />
+        <Container m={0}>
+          <Search />
+          <ShortVacancyPagination queryUsage={true} mtPagination={0} />
+        </Container>
+      </Group>
     </Container>
-   
+
   );
 }

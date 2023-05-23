@@ -1,20 +1,20 @@
 import { IconChevronDown } from '@tabler/icons-react';
 import { useStyles } from './Filter.styles';
-import { Card, Text, Group, CloseButton, MultiSelect, NumberInput, Button, Loader } from '@mantine/core';
+import { Card, Text, Group, MultiSelect, NumberInput, Button, Loader } from '@mantine/core';
 import { useState } from 'react';
 import { setFilterData } from '../../redux/slices';
 import { useAppDispatch, useFetchIndustries } from '../../hooks';
-
-//Solve it?????
-//rightIcon={<CloseButton title="Settings" iconSize={14} />}
+import { IoCloseOutline } from "react-icons/io5";
+import { useMediaQuery } from '@mantine/hooks';
 
 export function Filter() {
     const { classes } = useStyles();
     const dispatch = useAppDispatch();
-    const [industry, setIndustry] = useState([] as string[]);
-    const [paymentFrom, setPaymentFrom] = useState('' as number | '');
-    const [paymentTo, setPaymentTo] = useState('' as number | '');
+    const [industry, setIndustry] = useState<Array<string>>([]);
+    const [paymentFrom, setPaymentFrom] = useState<number | ''>('');
+    const [paymentTo, setPaymentTo] = useState<number | ''>('');
     const { data, isLoading } = useFetchIndustries();
+    const largeScreen = useMediaQuery('(min-width: 90em)');
 
     const industryData = data?.map((item: { key: number; title_rus: string; }) => {
         return { value: item.key, label: item.title_rus }
@@ -26,31 +26,31 @@ export function Filter() {
         setPaymentFrom('');
         setPaymentTo('');
         setIndustry([]);
-        dispatch(setFilterData({ industry:[], paymentFrom:'', paymentTo:'' }))
+        dispatch(setFilterData({ industry: [], paymentFrom: '', paymentTo: '' }))
     }
     return (
         <>
             {isLoading ? (
                 <Loader />
-            ) : (<Card withBorder radius="md" className={classes.card}>
-
-                <Group spacing={65} >
+            ) : (<Card withBorder padding={largeScreen ? 17 : 5} radius="md" ml={largeScreen ? 27 : 0} className={classes.card}>
+                <Group align="top" spacing={largeScreen ? 65 : 10} >
                     <Text className={classes.title}>Фильтры</Text>
                     <Button
                         onClick={handleButtonResetClick}
-                        styles={{ rightIcon: { margin: 0 } }}
+                        styles={{ rightIcon: { marginLeft: 4 } }}
                         w={120}
                         p={0}
                         className={classes.reset_btn}
-                        
-                        >
+                        rightIcon={<IoCloseOutline />}
+                    >
                         Cбросить все
                     </Button>
                 </Group>
                 <MultiSelect
+                    data-elem="industry-select"
                     value={industry}
-                    maxSelectedValues={2}
-                    mt={27}
+                    maxSelectedValues={1}
+                    mt={largeScreen ? 27 : 10}
                     data={industryData}
                     label=" Отрасль"
                     radius="md"
@@ -67,14 +67,14 @@ export function Filter() {
                     }}
                     rightSectionWidth={60}
                 />
-
                 <NumberInput
+                    data-elem="salary-from-input"
                     value={paymentFrom}
                     mt={18}
                     label="Оклад"
                     radius="md"
                     size="md"
-                    placeholder="от"
+                    placeholder="От"
                     onChange={setPaymentFrom}
                     min={0}
                     styles={{
@@ -86,9 +86,10 @@ export function Filter() {
                     rightSectionWidth={45}
                 />
                 <NumberInput
+                    data-elem="salary-to-input"
                     value={paymentTo}
                     mt={8}
-                    placeholder="до"
+                    placeholder="До"
                     onChange={setPaymentTo}
                     radius="md"
                     size="md"
@@ -102,8 +103,10 @@ export function Filter() {
                     rightSectionWidth={45}
                 />
                 <Button
+                    data-elem="search-button"
                     onClick={handleButtonApplyClick}
-                    className={classes.apply_btn}>
+                    className={classes.apply_btn}
+                >
                     Применить
                 </Button>
             </Card>)}</>

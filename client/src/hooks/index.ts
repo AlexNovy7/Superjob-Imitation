@@ -28,7 +28,6 @@ export const useFetchVacancies = (
       setAuthorization(result.data);
     });
   }
-
   const url = new URL(
     `https://startup-summer-2023-proxy.onrender.com/2.0/vacancies/?published=1&page=${page}&count=${count}`
   );
