@@ -24,9 +24,23 @@ export const useStyles = createStyles((theme) => ({
     "&, &:hover": {
       color: theme.fn.variant({
         variant: "light",
-        color:  theme.colors.MyApp[1],
+        color: theme.colors.MyApp[1],
       }).color,
       cursor: "pointer",
+    },
+  },
+
+  logo: {
+    marginLeft: 150,
+    [theme.fn.smallerThan("xl")]: {
+      marginLeft: 10,
+    },
+  },
+
+  group: {
+    marginLeft: 268,
+    [theme.fn.smallerThan("xl")]: {
+      marginLeft: 10,
     },
   },
 }));

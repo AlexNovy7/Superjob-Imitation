@@ -5,7 +5,6 @@ import { useState } from 'react';
 import { setFilterData } from '../../redux/slices';
 import { useAppDispatch, useFetchIndustries } from '../../hooks';
 import { IoCloseOutline } from "react-icons/io5";
-import { useMediaQuery } from '@mantine/hooks';
 
 export function Filter() {
     const { classes } = useStyles();
@@ -14,7 +13,6 @@ export function Filter() {
     const [paymentFrom, setPaymentFrom] = useState<number | ''>('');
     const [paymentTo, setPaymentTo] = useState<number | ''>('');
     const { data, isLoading } = useFetchIndustries();
-    const largeScreen = useMediaQuery('(min-width: 90em)');
 
     const industryData = data?.map((item: { key: number; title_rus: string; }) => {
         return { value: item.key, label: item.title_rus }
@@ -32,8 +30,8 @@ export function Filter() {
         <>
             {isLoading ? (
                 <Loader />
-            ) : (<Card withBorder padding={largeScreen ? 17 : 5} radius="md" ml={largeScreen ? 27 : 0} className={classes.card}>
-                <Group align="top" spacing={largeScreen ? 65 : 10} >
+            ) : (<Card withBorder radius="md" className={classes.card}>
+                <Group align="top" spacing={65} >
                     <Text className={classes.title}>Фильтры</Text>
                     <Button
                         onClick={handleButtonResetClick}
@@ -50,7 +48,7 @@ export function Filter() {
                     data-elem="industry-select"
                     value={industry}
                     maxSelectedValues={1}
-                    mt={largeScreen ? 27 : 10}
+                    className={classes.multi_select}
                     data={industryData}
                     label=" Отрасль"
                     radius="md"

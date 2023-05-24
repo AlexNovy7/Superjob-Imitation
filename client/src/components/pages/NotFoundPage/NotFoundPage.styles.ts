@@ -5,6 +5,9 @@ export const useStyles = createStyles((theme) => ({
     fontWeight: 700,
     fontSize: 24,
     whiteSpace: "nowrap",
+    [theme.fn.smallerThan("xl")]: {
+      fontSize: 20,
+    },
   },
   btn: {
     backgroundColor: theme.colors.MyApp[6],

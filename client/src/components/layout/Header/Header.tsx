@@ -36,8 +36,8 @@ export function AppHeader({ links }: HeaderProps) {
   return (
     <Header height={84} sx={{ border: 'none' }}>
       <Container className={classes.header}>
-        <Image maw={140} ml={largeScreen ? 150 : 10} src={IMAGES.logo} alt="logo" />
-        <Group ml={largeScreen ? 268 : 10} spacing={largeScreen ? 38 : 10}>
+        <Image maw={140} className={classes.logo} src={IMAGES.logo} alt="logo" />
+        <Group className={classes.group}  spacing={largeScreen ? 38 : 10}>
           {items}
         </Group>
       </Container>

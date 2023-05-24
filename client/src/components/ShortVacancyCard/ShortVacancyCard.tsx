@@ -1,22 +1,17 @@
 import { IconMapPin } from '@tabler/icons-react';
 import { SlStar } from 'react-icons/sl';
 import { FaStar } from 'react-icons/fa';
-import { Card, Text, Group,List, Button, } from '@mantine/core';
+import { Card, Text, Group, List, Button, } from '@mantine/core';
 import { PaymentInfo } from '../PaymentInfo/PaymentInfo';
 import { useEffect, useState } from 'react';
-import { useMediaQuery } from '@mantine/hooks';
 import { ShortVacancyCardAllProps } from '../../interfaces';
 import { useStyles } from './ShortVacancyCard.styles';
 import { hasStar, manipulateStar } from './ShortVacancyCardUtils';
 
-
-
 export function ShortVacancyCard(props: ShortVacancyCardAllProps) {
   const { classes, theme } = useStyles(props);
   const { payment_text_fontSize, data } = props;
-  const largeScreen = useMediaQuery('(min-width: 90em)');
   const [switchStar, setSwitchStar] = useState(false);
-
 
   useEffect(() => {
     setSwitchStar(hasStar(data))
@@ -28,10 +23,10 @@ export function ShortVacancyCard(props: ShortVacancyCardAllProps) {
     manipulateStar(switchStar, data);
   }
   return (
-    <Card data-elem={`vacancy-${data.id}`} withBorder radius="md" p={largeScreen ? "md" : "xs"} mx="auto" w={largeScreen ? 773 : 280} className={classes.card}>
+    <Card data-elem={`vacancy-${data.id}`} withBorder radius="md" mx="auto" className={classes.card}>
       <Card.Section className={classes.section} mt="md">
         <Group className={classes.content_position} position="apart">
-          <Text mt={largeScreen ? 20 : 10} w={largeScreen ? 650 : 150} className={classes.profession_text}>
+          <Text className={classes.profession_text}>
             {data.profession}
           </Text>
           <Button data-elem={`vacancy-${data.id}-shortlist-button`} className={classes.btn} onClick={handleStarClick}>

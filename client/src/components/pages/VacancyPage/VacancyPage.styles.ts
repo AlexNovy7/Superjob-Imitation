@@ -6,6 +6,9 @@ export const useStyles = createStyles((theme) => ({
     width: 773,
     minHeight: 548,
     marginBottom: 16,
+    [theme.fn.smallerThan("xl")]: {
+      width: 280,
+    },
   },
 
   section: {

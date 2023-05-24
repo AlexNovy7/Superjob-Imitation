@@ -14,10 +14,14 @@ export const useStyles = createStyles((theme) => ({
   card: {
     width: 315,
     height: 360,
+    padding: 17,
+    marginLeft: 27,
     backgroundColor: theme.colors.MyApp[0],
- 
+
     [theme.fn.smallerThan("xl")]: {
       width: 300,
+      padding: 5,
+      marginLeft: 0,
     },
   },
 
@@ -42,5 +46,11 @@ export const useStyles = createStyles((theme) => ({
     borderRadius: 8,
     height: 40,
     marginTop: 20,
+  },
+  multi_select: {
+    marginTop: 27,
+    [theme.fn.smallerThan("xl")]: {
+      marginTop: 10,
+    },
   },
 }));

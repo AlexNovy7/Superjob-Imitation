@@ -8,20 +8,32 @@ export const useStyles = createStyles((theme, { card_minHeight,
     typeOfWork_text_fontWeight,
     typeOfWork_text_fontSize,
 }: ShortVacancyCardStylesProps) => ({
+
     card: {
         backgroundColor: theme.colors.MyApp[0],
         minHeight: card_minHeight,
+        padding: "md",
         marginBottom: 16,
+        maxWidth: 773,
         '&:hover': {
             cursor: 'pointer'
         },
+        [theme.fn.smallerThan('xl')]: {
+            maxWidth: 280,
+            padding: "xs",
+        },
     },
+
     profession_text: {
         fontWeight: profession_text_fontWeight,
         fontSize: profession_text_fontSize,
         color: profession_text_color,
+        maxWidth: 650,
+        marginTop: 20,
         [theme.fn.smallerThan("xl")]: {
             fontSize: 12,
+            maxWidth: 150,
+            marginTop: 10,
         },
     },
     typeOfWork_text: {
@@ -33,7 +45,6 @@ export const useStyles = createStyles((theme, { card_minHeight,
         },
     },
 
-
     section: {
         borderBottom: `${rem(1)} solid ${theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[3]
             }`,
@@ -41,6 +52,7 @@ export const useStyles = createStyles((theme, { card_minHeight,
         paddingRight: theme.spacing.md,
         paddingBottom: theme.spacing.md,
     },
+
     content_position: {
         marginRight: 8,
         marginLeft: 8,
@@ -69,9 +81,11 @@ export const useStyles = createStyles((theme, { card_minHeight,
             fontSize: 10,
         },
     },
+
     icon_map: {
         marginTop: 7,
     },
+
     btn: {
         padding: 0,
         border: "none",

@@ -1,5 +1,4 @@
 import { TextInput, TextInputProps, Button } from '@mantine/core';
-import { useMediaQuery } from '@mantine/hooks';
 import { IconSearch } from '@tabler/icons-react';
 import { useState } from 'react';
 import { useAppDispatch } from '../../hooks';
@@ -9,7 +8,6 @@ import { useStyles } from './Search.styles';
 
 
 export function Search(props: TextInputProps) {
-  const largeScreen = useMediaQuery('(min-width: 90em)');
   const { classes } = useStyles();
   const [search, setSearch] = useState('' as string);
   const dispatch = useAppDispatch();
@@ -20,8 +18,6 @@ export function Search(props: TextInputProps) {
     <TextInput
       data-elem="search-input"
       className={classes.search_input}
-      w={largeScreen ? 773 : 280}
-      mb={15}
       icon={<IconSearch size="1.1rem" stroke={1.5} />}
       radius="md"
       size="lg"
@@ -30,8 +26,6 @@ export function Search(props: TextInputProps) {
       rightSection={
         <Button
           data-elem="search-button"
-          w={largeScreen ? 83 : 60}
-          mr={largeScreen ? 62 : 10}
           className={classes.search_btn}
           onClick={handleButtonClick}
         >
