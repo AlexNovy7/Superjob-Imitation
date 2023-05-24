@@ -13,7 +13,7 @@ export function ShortVacancyPagination({ queryUsage, mtPagination }: queryUsageP
   const dispatch = useAppDispatch();
   const theme = useMantineTheme();
   const navigate = useNavigate();
-  const [activePage, setPage] = useState(1);
+  const [activePage, setActivePage] = useState(1);
   const sortData = useAppSelector((state) => state.appReducer)
   const itemsPerPage = 4;
   const startItem = (activePage - 1) * itemsPerPage;
@@ -68,7 +68,7 @@ export function ShortVacancyPagination({ queryUsage, mtPagination }: queryUsageP
           position="center"
           color={ theme.colors.MyApp[1]}
           value={activePage}
-          onChange={setPage}
+          onChange={setActivePage}
           mt={mtPagination}
           mb={42}
           total={pageCount(totalPages, activePage, itemsPerPage)}

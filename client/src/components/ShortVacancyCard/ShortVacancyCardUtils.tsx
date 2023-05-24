@@ -4,7 +4,7 @@ export const manipulateStar = (switchStar: boolean, data: ApiVacancyData) => {
 
   let switchedVacancies = localStorage.SwitchedVacancies ?
     JSON.parse(localStorage.SwitchedVacancies) : [];
-  const hasId = switchedVacancies.some((object: any) => object.id === data.id)
+  const hasId = switchedVacancies.some((object: ApiVacancyData) => object.id === data.id)
 
   if (!switchStar) {
     !hasId && switchedVacancies.push(data)
