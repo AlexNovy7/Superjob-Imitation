@@ -25,10 +25,12 @@ export const useStyles = createStyles((theme) => ({
       marginBottom: 5,
     },
   },
+  
   placeholder: {
     fontWeight: 400,
     fontSize: 14,
   },
+  
   icon: {
     paddingLeft: 0,
   },
