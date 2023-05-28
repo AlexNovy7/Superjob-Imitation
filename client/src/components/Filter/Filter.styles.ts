@@ -29,6 +29,9 @@ export const useStyles = createStyles((theme) => ({
     fontWeight: 700,
     lineHeight: 1.2,
     fontSize: 20,
+    [theme.fn.smallerThan("xl")]: {
+      fontSize: 14,
+    },
   },
   reset: {
     fontWeight: 500,

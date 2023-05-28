@@ -9,4 +9,10 @@ export const useStyles = createStyles((theme) => ({
       paddingTop: 20,
     },
   },
+  wrapper_container: {
+    margin: 0,
+    [theme.fn.smallerThan("xl")]: {
+      padding: 0,
+    },
+  },
 }));

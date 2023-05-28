@@ -12,7 +12,7 @@ export const WelcomePage = () => {
     <Container bg={theme.colors.MyApp[5]} size={1440}>
       <Group className={classes.welcome_page} mx={'auto'} align="top" spacing={12}>
         <Filter />
-        <Container m={0}>
+        <Container className={classes.wrapper_container}>
           <Search />
           <ShortVacancyPagination queryUsage={true} mtPagination={0} />
         </Container>

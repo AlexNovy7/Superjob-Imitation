@@ -20,8 +20,9 @@ export const useStyles = createStyles((theme) => ({
     width: 773,
     marginBottom: 15,
     [theme.fn.smallerThan("xl")]: {
-      maxWidth: 280,
-      padding: "xs",
+      maxWidth: 287,
+      padding: 0,
+      marginBottom: 5,
     },
   },
   placeholder: {
