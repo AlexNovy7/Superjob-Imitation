@@ -7,7 +7,9 @@ export const useStyles = createStyles((theme) => ({
     minHeight: 548,
     marginBottom: 16,
     [theme.fn.smallerThan("xl")]: {
-      width: 280,
+      width: 250,
+      paddingLeft: 0,
+      paddingRight: 0,
     },
   },
 
@@ -16,5 +18,10 @@ export const useStyles = createStyles((theme) => ({
     paddingLeft: theme.spacing.md,
     paddingRight: theme.spacing.md,
     paddingBottom: theme.spacing.md,
+    [theme.fn.smallerThan("xl")]: {
+      paddingLeft: theme.spacing.xs,
+      paddingRight: theme.spacing.xs,
+      margin: "0 auto",
+    },
   },
 }));

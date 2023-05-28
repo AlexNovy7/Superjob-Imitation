@@ -12,7 +12,7 @@ export const NotFoundPage = () => {
   const { classes } = useStyles();
   const navigate = useNavigate();
   const theme = useMantineTheme();
-  
+
   const handleButtonClick = () => {
     dispatch(setFilterData({ industry: [], paymentFrom: '', paymentTo: '' }))
     dispatch(setSearchData(''))
@@ -21,10 +21,10 @@ export const NotFoundPage = () => {
 
   return (
     <Container bg={theme.colors.MyApp[5]} size={1440} mih={820}>
-      <Container p={5} maw={327}  mx={'auto'}>
+      <Container p={5} maw={327} mx={'auto'}>
         <Image mt={115} mx={'auto'} maw={240} src={IMAGES.notFound} alt="not found" />
-        <Text mt={30} className={classes.title}>Упс, здесь еще ничего нет!</Text>
-        <Button ml={80} mt={27} className={classes.btn} onClick={handleButtonClick}>Поиск Вакансий</Button>
+        <Text className={classes.title}>Упс, здесь еще ничего нет!</Text>
+        <Button className={classes.btn} onClick={handleButtonClick}>Поиск Вакансий</Button>
       </Container>
     </Container>
   );

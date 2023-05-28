@@ -19,9 +19,9 @@ export const useStyles = createStyles((theme) => ({
     backgroundColor: theme.colors.MyApp[0],
 
     [theme.fn.smallerThan("xl")]: {
-      width: 300,
+      width: 290,
       padding: 5,
-      marginLeft: 0,
+      margin: "0 auto",
     },
   },
 

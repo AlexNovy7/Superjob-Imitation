@@ -7,12 +7,14 @@ export const useStyles = createStyles((theme) => ({
     [theme.fn.smallerThan("xl")]: {
       maxWidth: 320,
       paddingTop: 20,
+      margin: "0 auto",
     },
   },
   wrapper_container: {
     margin: 0,
     [theme.fn.smallerThan("xl")]: {
       padding: 0,
+      margin: "0 auto",
     },
   },
 }));
